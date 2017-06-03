@@ -69,5 +69,17 @@ namespace CentralizedMediator.Core
 
             _cache.Remove(id);
         }
+
+        public IEntity GetFromCache(int id)
+        {
+            IEntity entity;
+
+            if (_cache.TryGetValue(id, out entity))
+            {
+                return entity;
+            }
+            
+            return null;
+        }
     }
 }

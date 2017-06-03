@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CentralizedMediator.Core
 {
@@ -10,6 +6,7 @@ namespace CentralizedMediator.Core
     {
         void AddToCache(int id, T entity);
         void RemoveFromCache(int id);
+        T GetFromCache(int id);
         void ClearCache();
         int Count { get; }
     }
