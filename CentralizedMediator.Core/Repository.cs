@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace CentralizedMediator.Core
 {
-    public class Repository<T> : IRepository<T> where T : class, IEntity
+    public sealed class Repository<T> : IRepository<T> where T : class, IEntity
     {
         private List<T> _entities;
         private static ICentralizedMediator _mediator;

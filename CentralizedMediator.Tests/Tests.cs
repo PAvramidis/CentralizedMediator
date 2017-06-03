@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CentralizedMediator.Core;
-using System.Runtime.Remoting.Proxies;
 
 namespace CentralizedMediator.Tests
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CentralizedMediator.Core
 {
-    public class Mediator : ICentralizedMediator
+    public sealed class Mediator : ICentralizedMediator
     {
         private IDictionary<Type, IMediator> _mediators;
 

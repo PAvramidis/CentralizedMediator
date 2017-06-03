@@ -2,7 +2,7 @@
 
 namespace CentralizedMediator.Core
 {
-    public class RepositoryMediator : IRepositoryMediator
+    public sealed class RepositoryMediator : IRepositoryMediator
     {
         public static readonly RepositoryMediator Instance = new RepositoryMediator();
 
