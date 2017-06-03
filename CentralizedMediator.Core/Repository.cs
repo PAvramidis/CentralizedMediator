@@ -7,11 +7,11 @@ namespace CentralizedMediator.Core
     public sealed class Repository<T> : IRepository<T> where T : class, IEntity
     {
         private List<T> _entities;
-        private IRepositoryMediator _mediator;
+        private IRepositoryMediator<T> _mediator;
 
         public int Count { get { return _entities.Count; } }
 
-        public Repository(IRepositoryMediator mediator)
+        public Repository(IRepositoryMediator<T> mediator)
         {
             _mediator = mediator;
             _entities = new List<T>();
@@ -25,7 +25,7 @@ namespace CentralizedMediator.Core
             {
                 // could be out of range
                 entity = _entities[id];
-                _mediator.OnEntityRetrieved(this, new EntityRetrievedEventArgs<IEntity>() { RetrievedEntity = entity });
+                _mediator.OnEntityRetrieved(this, new EntityRetrievedEventArgs<T>() { RetrievedEntity = entity });
             }
             catch (Exception)
             {
@@ -46,7 +46,7 @@ namespace CentralizedMediator.Core
 
             if (result)
             {
-                _mediator.OnEntityDeleted(this, new EntityDeletedEventArgs<IEntity>() { DeletedEntity = entity });
+                _mediator.OnEntityDeleted(this, new EntityDeletedEventArgs<T>() { DeletedEntity = entity });
 
             }
 
@@ -57,7 +57,7 @@ namespace CentralizedMediator.Core
         {
             _entities.Add(entity);
 
-            _mediator.OnEntityAdded(this, new EntityAddedEventArgs<IEntity>() { AddedEntity = entity });
+            _mediator.OnEntityAdded(this, new EntityAddedEventArgs<T>() { AddedEntity = entity });
         }
     }
 }

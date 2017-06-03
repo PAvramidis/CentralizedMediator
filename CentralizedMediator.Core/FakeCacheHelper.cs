@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace CentralizedMediator.Core
 {
-    public class FakeCacheHelper : ICacheHelper<IEntity>
+    public class FakeCacheHelper<T> : ICacheHelper<T> where T : class, IEntity
     {
-        private IDictionary<int, IEntity> _cache;
-        private IRepositoryMediator _repoMediator;
+        private IDictionary<int, T> _cache;
+        private IRepositoryMediator<T> _repoMediator;
 
         public int Count { get { return _cache.Count;  } }
 
-        public FakeCacheHelper(IRepositoryMediator repoMediator)
+        public FakeCacheHelper(IRepositoryMediator<T> repoMediator)
         {
             _repoMediator = repoMediator;
-            _cache = new Dictionary<int, IEntity>();
+            _cache = new Dictionary<int, T>();
         }
 
         public void InitializeListeners()
@@ -30,28 +30,28 @@ namespace CentralizedMediator.Core
             _repoMediator.EntityRetrieved -= _repoMediator_EntityRetrieved;
         }
 
-        private void _repoMediator_EntityRetrieved(object sender, EntityRetrievedEventArgs<IEntity> e)
+        private void _repoMediator_EntityRetrieved(object sender, EntityRetrievedEventArgs<T> e)
         {
             var entity = e.RetrievedEntity;
 
             AddToCache(entity.Id, entity);
         }
 
-        private void _repoMediator_EntityDeleted(object sender, EntityDeletedEventArgs<IEntity> e)
+        private void _repoMediator_EntityDeleted(object sender, EntityDeletedEventArgs<T> e)
         {
             var entity = e.DeletedEntity;
 
             RemoveFromCache(entity.Id);
         }
 
-        private void _repoMediator_EntityAdded(object sender, EntityAddedEventArgs<IEntity> e)
+        private void _repoMediator_EntityAdded(object sender, EntityAddedEventArgs<T> e)
         {
             var entity = e.AddedEntity;
 
             AddToCache(entity.Id, entity);
         }
 
-        public void AddToCache(int id, IEntity entity)
+        private void AddToCache(int id, T entity)
         {
             if (_cache.ContainsKey(entity.Id)) return;
 
@@ -63,16 +63,16 @@ namespace CentralizedMediator.Core
             _cache.Clear();
         }
 
-        public void RemoveFromCache(int id)
+        private void RemoveFromCache(int id)
         {
             if (!_cache.ContainsKey(id)) return;
 
             _cache.Remove(id);
         }
 
-        public IEntity GetFromCache(int id)
+        public T GetFromCache(int id)
         {
-            IEntity entity;
+            T entity;
 
             if (_cache.TryGetValue(id, out entity))
             {

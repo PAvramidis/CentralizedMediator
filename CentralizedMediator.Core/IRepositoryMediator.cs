@@ -2,14 +2,14 @@
 
 namespace CentralizedMediator.Core
 {
-    public interface IRepositoryMediator : IMediator
+    public interface IRepositoryMediator<T> : IMediator where T: class, IEntity
     {
-        event EventHandler<EntityAddedEventArgs<IEntity>> EntityAdded;
-        event EventHandler<EntityDeletedEventArgs<IEntity>> EntityDeleted;
-        event EventHandler<EntityRetrievedEventArgs<IEntity>> EntityRetrieved;
+        event EventHandler<EntityAddedEventArgs<T>> EntityAdded;
+        event EventHandler<EntityDeletedEventArgs<T>> EntityDeleted;
+        event EventHandler<EntityRetrievedEventArgs<T>> EntityRetrieved;
 
-        void OnEntityAdded(object sender, EntityAddedEventArgs<IEntity> args);
-        void OnEntityDeleted(object sender, EntityDeletedEventArgs<IEntity> args);
-        void OnEntityRetrieved(object sender, EntityRetrievedEventArgs<IEntity> args);
+        void OnEntityAdded(object sender, EntityAddedEventArgs<T> args);
+        void OnEntityDeleted(object sender, EntityDeletedEventArgs<T> args);
+        void OnEntityRetrieved(object sender, EntityRetrievedEventArgs<T> args);
     }
 }
