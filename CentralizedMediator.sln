@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentralizedMediator.Core", "CentralizedMediator.Core\CentralizedMediator.Core.csproj", "{C8777970-1DF2-4766-8D7E-2B5D922C0E5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentralizedMediator.Tests", "CentralizedMediator.Tests\CentralizedMediator.Tests.csproj", "{2969C0BB-1C64-4ED4-BA87-83BE14E837E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C8777970-1DF2-4766-8D7E-2B5D922C0E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8777970-1DF2-4766-8D7E-2B5D922C0E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8777970-1DF2-4766-8D7E-2B5D922C0E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2969C0BB-1C64-4ED4-BA87-83BE14E837E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2969C0BB-1C64-4ED4-BA87-83BE14E837E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2969C0BB-1C64-4ED4-BA87-83BE14E837E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2969C0BB-1C64-4ED4-BA87-83BE14E837E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
