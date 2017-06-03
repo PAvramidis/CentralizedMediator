@@ -25,8 +25,6 @@ namespace CentralizedMediator.Core
 
         public void Add(T entity)
         {
-            // validate entity etc
-
             _repo.Add(entity);
         }
 

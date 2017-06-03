@@ -15,7 +15,8 @@ namespace CentralizedMediator.Tests
         public void Service_Should_Support_Manipulating_Of_Entities()
         {
             var mediator = new RepositoryMediator<Entity>();
-            var repo = new Repository<Entity>(mediator);
+            var list = new List<Entity>();
+            var repo = new Repository<Entity>(mediator, list);
             var cacheHelper = new FakeCacheHelper<Entity>(mediator);
             var service = new Service<Entity>(repo, cacheHelper);
             var entity = new Entity() { Id = 0 };

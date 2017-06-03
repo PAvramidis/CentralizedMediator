@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CentralizedMediator.Core;
 using CentralizedMediator.Core.Interfaces;
+using System.Collections.Generic;
 
 namespace CentralizedMediator.Tests
 {
@@ -12,7 +13,8 @@ namespace CentralizedMediator.Tests
         public void FakeCacheHelper_Should_Correctly_Support_Caching()
         {
             var mediator = new RepositoryMediator<Entity>();
-            var repo = new Repository<Entity>(mediator);
+            var list = new List<Entity>();
+            var repo = new Repository<Entity>(mediator, list);
             var cacheHelper = new FakeCacheHelper<Entity>(mediator);
 
             var entity = new Entity() { Id = 0 };

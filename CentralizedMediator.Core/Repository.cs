@@ -8,15 +8,15 @@ namespace CentralizedMediator.Core
 {
     public sealed class Repository<T> : IRepository<T> where T : class, IEntity
     {
-        private List<T> _entities;
+        private IList<T> _entities;
         private IRepositoryMediator<T> _mediator;
 
         public int Count { get { return _entities.Count; } }
 
-        public Repository(IRepositoryMediator<T> mediator)
+        public Repository(IRepositoryMediator<T> mediator, IList<T> list)
         {
             _mediator = mediator;
-            _entities = new List<T>();
+            _entities = list;
         }
         
         public T Get(int id)

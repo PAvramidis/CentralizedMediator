@@ -20,6 +20,24 @@ namespace CentralizedMediator.Core
             InitializeListeners();
         }
 
+        public void ClearCache()
+        {
+
+            _cache.Clear();
+        }
+
+        public T GetFromCache(int id)
+        {
+            T entity;
+
+            if (_cache.TryGetValue(id, out entity))
+            {
+                return entity;
+            }
+
+            return null;
+        }
+
         private void InitializeListeners()
         {
             _repoMediator.EntityAdded += _repoMediator_EntityAdded;
@@ -62,29 +80,11 @@ namespace CentralizedMediator.Core
             _cache.Add(id, entity);
         }
 
-        public void ClearCache()
-        {
-            
-            _cache.Clear();
-        }
-
         private void RemoveFromCache(int id)
         {
             if (!_cache.ContainsKey(id)) return;
 
             _cache.Remove(id);
-        }
-
-        public T GetFromCache(int id)
-        {
-            T entity;
-
-            if (_cache.TryGetValue(id, out entity))
-            {
-                return entity;
-            }
-            
-            return null;
         }
     }
 }
