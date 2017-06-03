@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CentralizedMediator.Core.Interfaces;
+using System.Collections.Generic;
 
 namespace CentralizedMediator.Core
 {

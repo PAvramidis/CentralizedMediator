@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CentralizedMediator.Core
+namespace CentralizedMediator.Core.Interfaces
 {
     public interface IRepository<T>
     {

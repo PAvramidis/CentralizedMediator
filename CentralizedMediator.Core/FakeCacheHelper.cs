@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CentralizedMediator.Core.Events;
+using CentralizedMediator.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace CentralizedMediator.Core
@@ -60,6 +62,7 @@ namespace CentralizedMediator.Core
 
         public void ClearCache()
         {
+            
             _cache.Clear();
         }
 

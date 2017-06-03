@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CentralizedMediator.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace CentralizedMediator.Core
@@ -7,9 +8,7 @@ namespace CentralizedMediator.Core
     {
         private IDictionary<Type, IMediator> _mediators;
 
-        public static readonly ICentralizedMediator Instance = new Mediator();
-
-        private Mediator() {
+        public Mediator() {
             _mediators = new Dictionary<Type, IMediator>();
         }
 

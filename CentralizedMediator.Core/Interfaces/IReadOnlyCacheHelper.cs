@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CentralizedMediator.Core
+namespace CentralizedMediator.Core.Interfaces
 {
     public interface IReadOnlyCacheHelper<T>
     {

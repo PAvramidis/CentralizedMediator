@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CentralizedMediator.Core
+namespace CentralizedMediator.Core.Interfaces
 {
     public interface ICacheHelper<T> : IDisposable, IReadOnlyCacheHelper<T>
     {

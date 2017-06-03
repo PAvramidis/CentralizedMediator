@@ -1,12 +1,12 @@
-﻿using System;
+﻿using CentralizedMediator.Core.Events;
+using CentralizedMediator.Core.Interfaces;
+using System;
 
 namespace CentralizedMediator.Core
 {
     public sealed class RepositoryMediator<T> : IRepositoryMediator<T> where T: class, IEntity
     {
-        public static readonly RepositoryMediator<T> Instance = new RepositoryMediator<T>();
-
-        private RepositoryMediator() { }
+        public RepositoryMediator() { }
 
         public event EventHandler<EntityAddedEventArgs<T>> EntityAdded = delegate { };
         public event EventHandler<EntityRetrievedEventArgs<T>> EntityRetrieved = delegate { };

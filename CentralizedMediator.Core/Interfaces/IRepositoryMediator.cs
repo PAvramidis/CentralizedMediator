@@ -1,6 +1,7 @@
-﻿using System;
+﻿using CentralizedMediator.Core.Events;
+using System;
 
-namespace CentralizedMediator.Core
+namespace CentralizedMediator.Core.Interfaces
 {
     public interface IRepositoryMediator<T> : IMediator where T: class, IEntity
     {

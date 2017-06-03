@@ -1,4 +1,6 @@
-﻿namespace CentralizedMediator.Core
+﻿using CentralizedMediator.Core.Interfaces;
+
+namespace CentralizedMediator.Core
 {
     public class Entity : IEntity
     {

@@ -1,4 +1,4 @@
-﻿namespace CentralizedMediator.Core
+﻿namespace CentralizedMediator.Core.Interfaces
 {
     public interface IEntity
     {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CentralizedMediator.Core.Events;
+using CentralizedMediator.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
