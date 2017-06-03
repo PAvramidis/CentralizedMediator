@@ -6,18 +6,13 @@ namespace CentralizedMediator.Core
     public sealed class Repository<T> : IRepository<T> where T : class, IEntity
     {
         private List<T> _entities;
-        private static ICentralizedMediator _mediator;
+        private IRepositoryMediator _mediator;
 
         public int Count { get { return _entities.Count; } }
 
-        static Repository()
+        public Repository(IRepositoryMediator mediator)
         {
-            _mediator = Mediator.Instance;
-            _mediator.AddMediator(typeof(IRepositoryMediator), RepositoryMediator.Instance);
-        }
-
-        public Repository()
-        {
+            _mediator = mediator;
             _entities = new List<T>();
         }
         
@@ -25,7 +20,7 @@ namespace CentralizedMediator.Core
         {
             var entity = _entities[id];
 
-            _mediator.GetMediator<IRepositoryMediator>().OnEntityRetrieved(this, new EntityRetrievedEventArgs<IEntity>() { RetrievedEntity = entity });
+            _mediator.OnEntityRetrieved(this, new EntityRetrievedEventArgs<IEntity>() { RetrievedEntity = entity });
 
             return entity;
         }
@@ -39,7 +34,7 @@ namespace CentralizedMediator.Core
         {
             var result = _entities.Remove(entity);
 
-            _mediator.GetMediator<IRepositoryMediator>().OnEntityDeleted(this, new EntityDeletedEventArgs<IEntity>() { DeletedEntity = entity });
+            _mediator.OnEntityDeleted(this, new EntityDeletedEventArgs<IEntity>() { DeletedEntity = entity });
 
             return result;
         }
@@ -48,7 +43,7 @@ namespace CentralizedMediator.Core
         {
             _entities.Add(entity);
 
-            _mediator.GetMediator<IRepositoryMediator>().OnEntityAdded(this, new EntityAddedEventArgs<IEntity>() { AddedEntity = entity });
+            _mediator.OnEntityAdded(this, new EntityAddedEventArgs<IEntity>() { AddedEntity = entity });
         }
     }
 }

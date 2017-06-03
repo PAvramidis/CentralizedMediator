@@ -6,15 +6,24 @@ namespace CentralizedMediator.Tests
     [TestClass]
     public class Tests
     {
+        [ClassInitialize]
+        public static void Setup(TestContext ctx)
+        {
+            // Register specific mediators
+            var centralizedMediator = Mediator.Instance;
+            centralizedMediator.AddMediator(typeof(IRepositoryMediator), RepositoryMediator.Instance);
+        }
+
         [TestMethod]
         public void Repository_Add_Generates_Event()
         {
             IEntity addedEntity = null;
             var entity = new Entity() { Id = 0 };
 
-            var repo = new Repository<Entity>();
-            var mediator = Mediator.Instance;
-            mediator.GetMediator<IRepositoryMediator>().EntityAdded += (s, e) => addedEntity = e.AddedEntity;
+            var mediator = Mediator.Instance.GetMediator<IRepositoryMediator>();
+            var repo = new Repository<Entity>(mediator);
+
+            mediator.EntityAdded += (s, e) => addedEntity = e.AddedEntity;
 
             repo.Add(entity);
 
@@ -27,9 +36,10 @@ namespace CentralizedMediator.Tests
             IEntity deletedEntity = null;
             var entity = new Entity() { Id = 0 };
 
-            var repo = new Repository<Entity>();
-            var mediator = Mediator.Instance;
-            mediator.GetMediator<IRepositoryMediator>().EntityDeleted += (s, e) => deletedEntity = e.DeletedEntity;
+            var mediator = Mediator.Instance.GetMediator<IRepositoryMediator>();
+            var repo = new Repository<Entity>(mediator);
+
+            mediator.EntityDeleted += (s, e) => deletedEntity = e.DeletedEntity;
 
             repo.Delete(entity);
 
@@ -42,9 +52,10 @@ namespace CentralizedMediator.Tests
             IEntity retrievedEntity = null;
             var entity = new Entity() { Id = 0 };
 
-            var repo = new Repository<Entity>();
-            var mediator = Mediator.Instance;
-            mediator.GetMediator<IRepositoryMediator>().EntityRetrieved += (s, e) => retrievedEntity = e.RetrievedEntity;
+            var mediator = Mediator.Instance.GetMediator<IRepositoryMediator>();
+            var repo = new Repository<Entity>(mediator);
+
+            mediator.EntityRetrieved += (s, e) => retrievedEntity = e.RetrievedEntity;
             repo.Add(entity);
             repo.Get(0);
 
@@ -56,10 +67,11 @@ namespace CentralizedMediator.Tests
         {
             var entity = new Entity();
             var invocationCount = 0;
-            var repo1 = new Repository<Entity>();
-            var repo2 = new Repository<Entity>();
-            var mediator = Mediator.Instance;
-            mediator.GetMediator<IRepositoryMediator>().EntityAdded += (s, e) => invocationCount++;
+            var mediator = Mediator.Instance.GetMediator<IRepositoryMediator>();
+            var repo1 = new Repository<Entity>(mediator);
+            var repo2 = new Repository<Entity>(mediator);
+
+            mediator.EntityAdded += (s, e) => invocationCount++;
 
             repo1.Add(entity);
             repo1.Add(entity);
