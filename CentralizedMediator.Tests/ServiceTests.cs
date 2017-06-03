@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CentralizedMediator.Core;
 using Moq;
 using CentralizedMediator.Core.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CentralizedMediator.Tests
 {
@@ -10,63 +12,46 @@ namespace CentralizedMediator.Tests
     public class ServiceTests
     {
         [TestMethod]
-        public void Service_GetById_Should_Use_The_Cache_If_Object_Is_Present()
+        public void Service_Should_Support_Manipulating_Of_Entities()
         {
-            var cacheHelper = new Mock<ICacheHelper<Entity>>();
-            var repo = new Mock<IRepository<Entity>>();
-            var expected = new Entity() { Id = 0 };
-
-            cacheHelper.Setup(c => c.GetFromCache(0)).Returns(expected);
-
-            var store = new Service<Entity>(repo.Object, cacheHelper.Object);
-
-            var result = store.GetById(0);
-
-            Assert.AreSame(expected, result);
-        }
-
-        [TestMethod]
-        public void Service_GetById_Should_Fallback_To_Repo_Is_Cache_Hit_Is_A_Miss()
-        {
-            var cacheHelper = new Mock<ICacheHelper<Entity>>();
-            var repo = new Mock<IRepository<Entity>>();
-            var expected = new Entity() { Id = 0 };
-
-            repo.Setup(r => r.Get(0)).Returns(expected);
-
-            var store = new Service<Entity>(repo.Object, cacheHelper.Object);
-
-            var result = store.GetById(0);
-
-            Assert.AreSame(expected, result);
-        }
-
-        [TestMethod]
-        public void Store_Add_Should_Delegate_Addition_To_The_Repo()
-        {
-            var cacheHelper = new Mock<ICacheHelper<Entity>>();
-            var repo = new Mock<IRepository<Entity>>();
+            var mediator = new RepositoryMediator<Entity>();
+            var repo = new Repository<Entity>(mediator);
+            var cacheHelper = new FakeCacheHelper<Entity>(mediator);
+            var service = new Service<Entity>(repo, cacheHelper);
             var entity = new Entity() { Id = 0 };
 
-            var store = new Service<Entity>(repo.Object, cacheHelper.Object);
+            IEntity result;
+            IEnumerable<IEntity> enumerable;
+            IEntity[] array;
 
-            store.Add(entity);
+            result = service.GetById(0);
 
-            repo.Verify(r => r.Add(entity), Times.Once);
-        }
+            Assert.AreEqual(null, result);
 
-        [TestMethod]
-        public void Store_Delete_Should_Delegate_Deletion_To_The_Repo()
-        {
-            var cacheHelper = new Mock<ICacheHelper<Entity>>();
-            var repo = new Mock<IRepository<Entity>>();
-            var entity = new Entity() { Id = 0 };
+            service.Add(entity);
 
-            var store = new Service<Entity>(repo.Object, cacheHelper.Object);
+            result = service.GetById(0);
 
-            store.Delete(entity);
+            Assert.AreEqual(entity, result);
 
-            repo.Verify(r => r.Delete(entity), Times.Once);
+            enumerable = service.GetAll();
+
+            array = enumerable.ToArray();
+
+            Assert.AreEqual(1, array.Length);
+            Assert.AreEqual(entity, array[0]);
+
+            service.Delete(entity);
+
+            result = service.GetById(0);
+
+            Assert.AreEqual(null, result);
+
+            enumerable = service.GetAll();
+
+            array = enumerable.ToArray();
+
+            Assert.AreEqual(0, array.Length);
         }
     }
 }
