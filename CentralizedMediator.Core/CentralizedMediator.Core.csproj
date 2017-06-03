@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMediator.cs" />
+    <Compile Include="ICentralizedMediator.cs" />
     <Compile Include="IRepositoryMediator.cs" />
     <Compile Include="Mediator.cs" />
     <Compile Include="Entity.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryMediator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

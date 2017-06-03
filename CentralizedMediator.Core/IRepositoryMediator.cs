@@ -2,7 +2,7 @@
 
 namespace CentralizedMediator.Core
 {
-    public interface IRepositoryMediator
+    public interface IRepositoryMediator : IMediator
     {
         event EventHandler<EntityAddedEventArgs<IEntity>> EntityAdded;
         event EventHandler<EntityDeletedEventArgs<IEntity>> EntityDeleted;

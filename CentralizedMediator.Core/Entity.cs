@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CentralizedMediator.Core
+﻿namespace CentralizedMediator.Core
 {
     public class Entity : IEntity
     {
