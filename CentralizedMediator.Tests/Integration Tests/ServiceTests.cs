@@ -52,6 +52,14 @@ namespace CentralizedMediator.Tests
             array = enumerable.ToArray();
 
             Assert.AreEqual(0, array.Length);
+
+            cacheHelper.Dispose();
+
+            service.Add(entity);
+
+            result = service.GetById(0);
+
+            Assert.AreEqual(entity, result);
         }
     }
 }

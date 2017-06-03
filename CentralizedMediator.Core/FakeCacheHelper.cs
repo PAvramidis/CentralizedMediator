@@ -16,9 +16,11 @@ namespace CentralizedMediator.Core
         {
             _repoMediator = repoMediator;
             _cache = new Dictionary<int, T>();
+
+            InitializeListeners();
         }
 
-        public void InitializeListeners()
+        private void InitializeListeners()
         {
             _repoMediator.EntityAdded += _repoMediator_EntityAdded;
             _repoMediator.EntityDeleted += _repoMediator_EntityDeleted;

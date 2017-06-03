@@ -5,7 +5,7 @@ using CentralizedMediator.Core.Interfaces;
 namespace CentralizedMediator.Tests
 {
     [TestClass]
-    public class Tests
+    public class RepositoryTests
     {
         [TestMethod]
         public void Repository_Add_Generates_Event()
@@ -77,44 +77,6 @@ namespace CentralizedMediator.Tests
             repo2.Add(entity);
 
             Assert.AreEqual(3, invocationCount);
-        }
-
-        [TestMethod]
-        public void CacheHelper_Adds_New_Entites_To_Cache()
-        {
-            var mediator = new RepositoryMediator<Entity>();
-
-            using (var cacheHelper = new FakeCacheHelper<Entity>(mediator))
-            {
-                cacheHelper.InitializeListeners();
-
-                var entity = new Entity() { Id = 0 };
-                var repo = new Repository<Entity>(mediator);
-
-                repo.Add(entity);
-
-                Assert.AreEqual(1, cacheHelper.Count);
-            }
-        }
-
-        [TestMethod]
-        public void CacheHelper_Removes_Entites_From_Cache()
-        {
-            var mediator = new RepositoryMediator<Entity>();
-
-            using (var cacheHelper = new FakeCacheHelper<Entity>(mediator))
-            {
-                cacheHelper.InitializeListeners();
-
-                var entity = new Entity() { Id = 0 };
-                var repo = new Repository<Entity>(mediator);
-
-                repo.Add(entity);
-                Assert.AreEqual(1, cacheHelper.Count);
-
-                repo.Delete(entity);
-                Assert.AreEqual(0, cacheHelper.Count);
-            }
         }
     }
 }
