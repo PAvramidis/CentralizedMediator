@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CentralizedMediator.Core
@@ -18,9 +19,18 @@ namespace CentralizedMediator.Core
         
         public T Get(int id)
         {
-            var entity = _entities[id];
+            T entity;
 
-            _mediator.OnEntityRetrieved(this, new EntityRetrievedEventArgs<IEntity>() { RetrievedEntity = entity });
+            try
+            {
+                // could be out of range
+                entity = _entities[id];
+                _mediator.OnEntityRetrieved(this, new EntityRetrievedEventArgs<IEntity>() { RetrievedEntity = entity });
+            }
+            catch (Exception)
+            {
+                entity = null;
+            }
 
             return entity;
         }
@@ -34,7 +44,11 @@ namespace CentralizedMediator.Core
         {
             var result = _entities.Remove(entity);
 
-            _mediator.OnEntityDeleted(this, new EntityDeletedEventArgs<IEntity>() { DeletedEntity = entity });
+            if (result)
+            {
+                _mediator.OnEntityDeleted(this, new EntityDeletedEventArgs<IEntity>() { DeletedEntity = entity });
+
+            }
 
             return result;
         }

@@ -13,18 +13,29 @@ namespace CentralizedMediator.Core
             _mediators = new Dictionary<Type, IMediator>();
         }
 
-        public T GetMediator<T>() where T: IMediator
+        public T GetMediator<T>() where T: class, IMediator
         {
-            return (T)_mediators[typeof(T)];
+            IMediator mediator;
+
+            if (_mediators.TryGetValue(typeof(T), out mediator))
+            {
+                return (T)mediator;
+            }
+
+            return null;
         }
 
         public void AddMediator(Type type, IMediator mediator)
         {
+            if (_mediators.ContainsKey(type)) return;
+
             _mediators.Add(type, mediator);
         }
 
         public void RemoveMediator(Type type)
         {
+            if (!_mediators.ContainsKey(type)) return;
+
             _mediators.Remove(type);
         }
 

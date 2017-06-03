@@ -40,6 +40,7 @@ namespace CentralizedMediator.Tests
             var repo = new Repository<Entity>(mediator);
 
             mediator.EntityDeleted += (s, e) => deletedEntity = e.DeletedEntity;
+            repo.Add(entity);
 
             repo.Delete(entity);
 

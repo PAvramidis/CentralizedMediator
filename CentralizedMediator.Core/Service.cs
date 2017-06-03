@@ -5,9 +5,9 @@ namespace CentralizedMediator.Core
     public class Service<T> where T : class, IEntity
     {
         private IRepository<T> _repo;
-        private ICacheHelper<T> _cacheHelper;
+        private IReadOnlyCacheHelper<T> _cacheHelper;
 
-        public Service(IRepository<T> repo, ICacheHelper<T> cacheHelper)
+        public Service(IRepository<T> repo, IReadOnlyCacheHelper<T> cacheHelper)
         {
             _repo = repo;
             _cacheHelper = cacheHelper;
